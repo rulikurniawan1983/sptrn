@@ -99,3 +99,76 @@ On first deployment to Laravel Cloud:
 6. Run `php artisan config:cache`
 
 After that, every push to `main` will automatically deploy!
+
+## VS Code Workflow
+
+### Available Tasks
+
+Open VS Code Terminal (`Ctrl+Shift+``) and run tasks with **Terminal → Run Task** or use keyboard shortcut `Ctrl+Shift+B` for default task:
+
+| Task | Description |
+|------|-------------|
+| **Start Development Server** | Runs `php artisan serve` on `http://127.0.0.1:8000` |
+| **Generate APP_KEY** | Shows new APP_KEY to copy into `.env` |
+| **Run Migrations** | Runs `php artisan migrate --force` |
+| **Clear All Caches** | Runs `php artisan optimize:clear` |
+| **Build Production Assets** | Runs `npm run build` |
+| **Install Dependencies** | Runs `composer install --no-dev --optimize-autoloader` |
+| **Optimize for Production** | Runs config/route/view/event cache |
+| **Deploy to GitHub** | Runs `git push origin main` |
+| **Commit and Push to GitHub** | Interactive commit + push |
+| **Full Production Deployment** | Build + optimize + commit + push in one step |
+
+### Recommended VS Code Extensions
+
+Install the recommended extensions when prompted, or install manually:
+
+- **Laravel Blade Snippets** - `onecentenhancer.php-code-sniffer`
+- **Intelephense** - `bmewburn.vscode-intelephense-client`
+- **PHP Debug** - `xdebug.php-debug`
+- **Laravel Pint** - `laravel.pint`
+- **Prettier** - `amiral.js-prettier`
+
+### Development vs Production Workflow
+
+#### Development (Local)
+- Use **Start Development Server** task
+- Uses `.env` with local settings (SQLite, Mailhog, etc.)
+- Debug mode is ON (`APP_DEBUG=true`)
+- Hot reload with `npm run dev` in separate terminal
+
+#### Production (Laravel Cloud)
+- Use **Full Production Deployment** task
+- This will:
+  1. Build production assets
+  2. Install dependencies without dev packages
+  3. Optimize application
+  4. Commit and push to GitHub
+  5. GitHub Actions triggers Laravel Cloud deployment
+  6. Post-deployment scripts run automatically
+
+### Quick Commands
+
+```bash
+# Development
+npm run dev                    # Hot reload frontend
+php artisan serve              # Start dev server
+php artisan migrate            # Run migrations locally
+
+# Production
+npm run build                  # Build production assets
+composer install --no-dev      # Install without dev dependencies
+php artisan config:cache       # Cache configuration
+git push origin main           # Trigger deployment
+```
+
+### Environment Files
+
+| File | Purpose | Git |
+|------|---------|-----|
+| `.env` | **Active** environment file | Ignored |
+| `.env.local` | Local overrides (not used by Laravel) | Ignored |
+| `.env.production` | Production template | Ignored |
+| `.env.example` | Reference for all variables | Committed |
+
+**Note:** For local development, edit `.env`. For production, edit `.env` on the Laravel Cloud server or use the Laravel Cloud dashboard to set environment variables.

@@ -1,0 +1,21 @@
+{
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "php.suggest.basic": false,
+    "php.validate.executablePath": "php",
+    "laravel.environmentPath": ".",
+    "laravel.logViewer.folder": "storage/logs",
+    "files.associations": {
+        "*.blade.php": "html"
+    },
+    "emmet.includeLanguages": {
+        "blade": "html"
+    },
+    "blade.format.enable": true,
+    "terminal.integrated.env.windows": {
+        "APP_ENV": "local",
+        "APP_DEBUG": "true"
+    }
+}

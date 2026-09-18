@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "onecentenhancer.php-code-sniffer",
+        "bmewburn.vscode-intelephense-client",
+        "ms-vscode.vscode-json",
+        "EditorConfig.EditorConfig",
+        "xdebug.php-debug",
+        "laravel.pint",
+        "amiral.js-prettier"
+    ],
+    "unwantedRecommendations": []
+}

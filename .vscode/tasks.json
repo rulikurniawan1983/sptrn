@@ -1,0 +1,145 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start Development Server",
+            "type": "shell",
+            "command": "php artisan serve",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Stop Development Server",
+            "type": "shell",
+            "command": "taskkill /F /FI \"WINDOWTITLE eq SPARTAN*\" 2>nul || echo \"No server running\"",
+            "group": "build",
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Generate APP_KEY",
+            "type": "shell",
+            "command": "php artisan key:generate --show",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Migrations",
+            "type": "shell",
+            "command": "php artisan migrate --force",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Clear All Caches",
+            "type": "shell",
+            "command": "php artisan optimize:clear",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build Production Assets",
+            "type": "shell",
+            "command": "npm run build",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Install Dependencies",
+            "type": "shell",
+            "command": "composer install --no-dev --optimize-autoloader",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Optimize for Production",
+            "type": "shell",
+            "command": "php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan event:cache",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Deploy to GitHub",
+            "type": "shell",
+            "command": "git push origin main",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Commit and Push to GitHub",
+            "type": "shell",
+            "command": "git add -A && git commit -m \"${input:commitMessage}\" && git push origin main",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": [],
+            "inputs": [
+                {
+                    "id": "commitMessage",
+                    "type": "promptString",
+                    "description": "Commit message",
+                    "default": "Update application"
+                }
+            ]
+        },
+        {
+            "label": "Full Production Deployment",
+            "type": "shell",
+            "command": "echo '1. Building assets...' && npm run build && echo '2. Installing dependencies...' && composer install --no-dev --optimize-autoloader && echo '3. Optimizing...' && php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan event:cache && echo '4. Committing...' && git add -A && git commit -m \"Production build ${input:version}\" && git push origin main && echo '5. Deployment triggered!' && echo 'Check Laravel Cloud for deployment status'",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": [],
+            "inputs": [
+                {
+                    "id": "version",
+                    "type": "promptString",
+                    "description": "Version tag (optional)",
+                    "default": ""
+                }
+            ]
+        }
+    ]
+}
