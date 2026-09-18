@@ -68,6 +68,7 @@ npm run build
 ## Menjalankan Aplikasi
 
 ### Development
+
 ```bash
 # Terminal 1: Vite dev server
 npm run dev
@@ -79,6 +80,7 @@ php artisan serve
 Akses di `http://localhost:8000`
 
 ### Production
+
 ```bash
 # Build assets
 npm run build
@@ -113,12 +115,14 @@ php artisan test
 Aplikasi ini otomatis deploy ke Laravel Cloud melalui GitHub Actions.
 
 **Setup GitHub Secrets:**
+
 - `LARAVEL_CLOUD_DEPLOY_HOOK` - URL deploy hook dari Laravel Cloud
 - `LARAVEL_CLOUD_SSH_KEY` - Private SSH key untuk akses server
 - `LARAVEL_CLOUD_SSH_HOST` - Hostname/IP server
 - `LARAVEL_CLOUD_SSH_USER` - Username SSH
 
 **Manual deployment:**
+
 ```bash
 # Di server Laravel Cloud
 cd /home/sites/default
