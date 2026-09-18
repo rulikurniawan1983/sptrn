@@ -11,6 +11,93 @@ jobs:
     steps:
       - name: Trigger Laravel Cloud deployment
         run: |
+          echo "Triggering Laravel Cloud deployment..."
           curl -X POST "${{ secrets.LARAVEL_CLOUD_DEPLOY_HOOK }}" \
             -H "Content-Type: application/json" \
             -d '{"branch":"main"}'
+        env:
+          LARAVEL_CLOUD_DEPLOY_HOOK: ${{ secrets.LARAVEL_CLOUD_DEPLOY_HOOK }}
+
+      - name: Wait for deployment to complete
+        run: |
+          echo "Waiting 90 seconds for deployment to complete..."
+          sleep 90
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.LARAVEL_CLOUD_SSH_KEY }}" > ~/.ssh/laravel_cloud_key
+          chmod 600 ~/.ssh/laravel_cloud_key
+          ssh-keyscan -H ${{ secrets.LARAVEL_CLOUD_SSH_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
+        env:
+          LARAVEL_CLOUD_SSH_KEY: ${{ secrets.LARAVEL_CLOUD_SSH_KEY }}
+          LARAVEL_CLOUD_SSH_HOST: ${{ secrets.LARAVEL_CLOUD_SSH_HOST }}
+
+      - name: Run post-deployment commands
+        run: |
+          echo "Connecting to Laravel Cloud server..."
+          ssh -i ~/.ssh/laravel_cloud_key ${{ secrets.LARAVEL_CLOUD_SSH_USER }}@${{ secrets.LARAVEL_CLOUD_SSH_HOST }} << 'EOF'
+            cd /home/sites/default || exit 1
+            
+            echo "========================================"
+            echo "  SPARTAN Post-Deployment Tasks"
+            echo "========================================"
+            echo ""
+            
+            # Check if .env exists
+            if [ ! -f .env ]; then
+                echo "ERROR: .env file not found!"
+                exit 1
+            fi
+            
+            # Generate APP_KEY if it's still the placeholder
+            echo "[1/6] Checking APP_KEY..."
+            if grep -q "YOUR_PRODUCTION_APP_KEY_HERE" .env; then
+                echo "Generating new APP_KEY..."
+                php artisan key:generate --force
+            else
+                echo "APP_KEY already set"
+            fi
+            
+            # Install/update Composer dependencies
+            echo ""
+            echo "[2/6] Installing Composer dependencies..."
+            composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+            
+            # Run database migrations
+            echo ""
+            echo "[3/6] Running database migrations..."
+            php artisan migrate --force --no-interaction
+            
+            # Seed database (optional)
+            echo ""
+            echo "[4/6] Seeding database..."
+            php artisan db:seed --force --no-interaction || echo "Warning: Seeding failed or not needed"
+            
+            # Create storage link
+            echo ""
+            echo "[5/6] Creating storage link..."
+            php artisan storage:link --force || echo "Warning: Storage link already exists"
+            
+            # Clear and cache configurations
+            echo ""
+            echo "[6/6] Optimizing application..."
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan event:cache
+            
+            # Set proper permissions
+            echo ""
+            echo "Setting permissions..."
+            chmod -R 775 storage bootstrap/cache
+            
+            echo ""
+            echo "========================================"
+            echo "  Post-Deployment Complete!"
+            echo "========================================"
+          EOF
+        env:
+          LARAVEL_CLOUD_SSH_KEY: ${{ secrets.LARAVEL_CLOUD_SSH_KEY }}
+          LARAVEL_CLOUD_SSH_HOST: ${{ secrets.LARAVEL_CLOUD_SSH_HOST }}
+          LARAVEL_CLOUD_SSH_USER: ${{ secrets.LARAVEL_CLOUD_SSH_USER }}
