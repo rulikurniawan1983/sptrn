@@ -12,11 +12,16 @@ echo "  SPARTAN Post-Deployment Tasks"
 echo "========================================"
 echo ""
 
-# Check if .env exists
+# Check if .env exists, if not copy from .env.local
 if [ ! -f .env ]; then
-    echo "ERROR: .env file not found!"
-    echo "Please copy .env to the server and configure your production values"
-    exit 1
+    if [ -f .env.local ]; then
+        echo "Copying .env.local to .env..."
+        cp .env.local .env
+    else
+        echo "ERROR: .env file not found!"
+        echo "Please create .env file from .env.local template"
+        exit 1
+    fi
 fi
 
 # Generate APP_KEY if it's still the placeholder
