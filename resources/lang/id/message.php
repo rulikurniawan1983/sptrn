@@ -1,0 +1,22 @@
+<?php
+return [
+    'success_save'                => 'Data berhasil disave.',
+    'success_add'                 => 'Data berhasil dibuat.',
+    'success_update'              => 'Data berhasil diupdate.',
+    'success_delete'              => 'Data berhasil dihapus.',
+    'success_register_and_verify' => 'Pendaftaran telah berhasil diselesaikan. Harap verifikasi email Anda.',
+    'success_register'            => 'Pendaftaran berhasil. Silakan Masuk.',
+    'success_verify'              => 'Email berhasil diverifikasi.',
+    'success_resend'              => 'Tautan verifikasi terkirim.',
+    'error'                       => 'Gagal!!!.',
+    'error_inputan_tida_sesuai'   => 'Inputan tidak sesuai.',
+    'add'                         => 'Tambah',
+    'add_collective'              => 'Tambah Kolektif',
+    'edit'                        => 'Edit',
+    'delete_selected'             => 'Hapus Pilihan',
+    'back'                        => 'Kembali',
+    'save'                        => 'Simpan',
+    'delete'                      => 'Hapus',
+    'login_as'                    => 'Login Sebagai',
+    'urutan'                      => 'Urutan',
+];

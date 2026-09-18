@@ -1,0 +1,1 @@
+@include('base-page.edit', ['backroute' => route($route.'.index', ["id_praktek_dokter_hewan" => $getParent->id])])

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="Informasi budidaya, perikanan tangkap, produk, dan edukasi perikanan." name="description" />
+    <title>SPARTAN — Perikanan</title>
+    <link rel="preload" as="video" href="assets/images/ikan.webm" fetchpriority="high" />
+    <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <link href="assets/css/styles.css?v=8" rel="stylesheet" />
+</head>
+
+<body class="page-fishery" data-page="fishery" data-sector="perikanan">
+    <header class="site-header">
+        <div class="container header-inner">
+            <a aria-label="SPARTAN beranda" class="brand" href="index.html">
+                <img alt="Logo SPARTAN" class="brand-logo"
+                    onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"
+                    src="https://spartan.bogorkab.go.id/assets/img/17350108258803.png" /><span
+                    class="brand-copy header-brand-fallback"><strong>SPARTAN</strong><small>Ternak &amp;
+                        Perikanan</small></span>
+            </a>
+            <nav aria-label="Navigasi utama" class="desktop-nav"><a data-nav="home" href="index.html">Beranda</a><a
+                    data-nav="livestock" href="peternakan.html">Peternakan</a><a data-nav="fishery"
+                    href="perikanan.html">Perikanan</a><a data-nav="umkm" href="umkm.html">UMKM</a><a data-nav="info"
+                    href="informasi.html">Informasi</a></nav>
+            <div class="header-actions">
+                <form class="search-box" onsubmit="handleSearch(event)">
+                    <input aria-label="Cari informasi" placeholder="Cari informasi..." type="search" />
+                    <button aria-label="Cari" type="submit">⌕</button>
+                </form>
+                <button class="login-btn" onclick="showToast('Fitur login siap dihubungkan ke sistem autentikasi.')"
+                    type="button">♙ <span>Login</span></button>
+                <button aria-expanded="false" aria-label="Buka menu" class="menu-toggle" id="menuToggle"
+                    type="button">☰</button>
+            </div>
+        </div>
+    </header>
+    <div class="mobile-panel" id="mobilePanel">
+        <nav aria-label="Navigasi seluler" class="mobile-nav"><a data-nav="home" href="index.html">Beranda</a><a
+                data-nav="livestock" href="peternakan.html">Peternakan</a><a data-nav="fishery"
+                href="perikanan.html">Perikanan</a><a data-nav="umkm" href="umkm.html">UMKM</a><a data-nav="info"
+                href="informasi.html">Informasi</a></nav>
+        <form class="search-box mobile-search" onsubmit="handleSearch(event)">
+            <input aria-label="Cari informasi" placeholder="Cari informasi..." type="search" />
+            <button aria-label="Cari" type="submit">⌕</button>
+        </form>
+        <button class="login-btn mobile-login"
+            onclick="showToast('Fitur login siap dihubungkan ke sistem autentikasi.')" type="button">♙ Login</button>
+    </div>
+    <main>
+        <section class="page-hero fishery">
+            <video class="hero-video" autoplay loop muted playsinline>
+                <source src="assets/images/ikan.webm" type="video/webm">
+            </video>
+            <div class="container page-hero-inner">
+                <div class="breadcrumbs"><a href="index.html">Beranda</a><span>›</span><span>Perikanan</span></div>
+                <span class="page-kicker">Sektor SPARTAN</span>
+                <h1>Perikanan</h1>
+                <p>Halaman khusus informasi budidaya, perikanan tangkap, sarana, produk, dan edukasi perikanan Kabupaten
+                    Bogor.</p>
+                <div class="page-hero-actions"><a class="btn btn-blue" href="#layanan-perikanan">Lihat informasi</a><a
+                        class="btn btn-ghost" href="#statistik-perikanan">Buka statistik perikanan</a></div>
+            </div>
+
+        </section>
+        <!--
+        <section class="section sector-intro">
+            <div class="container category-grid single-category-grid">
+                <article class="category-card fishery" id="ringkasan-perikanan">
+                    <div class="category-heading">
+                        <div>
+                            <h2>Data Sektoral Perikanan</h2>
+                           
+                        </div>
+                    </div>
+                    <div class="category-items">
+                        <div class="category-item"><span>≋</span>Budidaya</div>
+                        <div class="category-item"><span>⚓</span>Tangkap</div>
+                        <div class="category-item"><span>◔</span>Pakan Ikan</div>
+                        <div class="category-item"><span>▣</span>Kolam</div>
+                        <div class="category-item"><span>♜</span>Alat Tangkap</div>
+                        <div class="category-item"><span>♙</span>Pasar Ikan</div>
+                        <div class="category-item"><span>⚙</span>Teknologi</div>
+                        <div class="category-item"><span>▦</span>Manajemen</div>
+                    </div>
+                    <a class="btn btn-blue category-button" href="#statistik-perikanan">Lihat Data &amp; Statistik →</a>
+                </article>
+            </div>
+        </section>-->
+        <section aria-labelledby="judul-statistik-perikanan" class="sector-statistics" id="statistik-perikanan">
+            <div class="sector-data-banner">
+                <div class="container category-grid single-category-grid">
+                    <article class="category-card fishery" id="ringkasan-perikanan">
+                        <div class="category-heading">
+                            <div>
+                                <h2>Data Sektoral Perikanan</h2>
+                               
+                            </div>
+                        </div>
+                        <div class="category-items">
+                            <div class="category-item"><span>≋</span>Budidaya</div>
+                            <div class="category-item"><span>⚓</span>Tangkap</div>
+                            <div class="category-item"><span>◔</span>Pakan Ikan</div>
+                            <div class="category-item"><span>▣</span>Kolam</div>
+                            <div class="category-item"><span>♜</span>Alat Tangkap</div>
+                            <div class="category-item"><span>♙</span>Pasar Ikan</div>
+                            <div class="category-item"><span>⚙</span>Teknologi</div>
+                            <div class="category-item"><span>▦</span>Manajemen</div>
+                        </div>
+                        <a class="btn btn-blue category-button" href="#statistik-perikanan">Lihat Data &amp; Statistik
+                            →</a>
+                    </article>
+                </div>
+            </div>
+            <div class="mini-data-strip sector-mini-data-strip">
+                <div class="stats-strip">
+                    <div class="stat-item"><span class="stat-icon">Rp.</span>
+                        <div><b id="stat-avg">—</b><small id="stat-avg-market">Rata-rata harga</small></div>
+                    </div>
+                    <div class="stat-item"><span class="stat-icon">Rp.</span>
+                        <div><b id="stat-low">—</b><small id="stat-low-market">Harga terendah</small></div>
+                    </div>
+                    <div class="stat-item"><span class="stat-icon">Rp.</span>
+                        <div><b id="stat-high">—</b><small id="stat-high-market">Harga tertinggi</small></div>
+                    </div>
+                    <div class="stat-item"><span class="stat-icon">🐟</span>
+                        <div><b id="stat-count">—</b><small id="stat-count-label">komoditas perikanan</small></div>
+                    </div>
+                </div>
+            </div>
+            <section class="section categories category-data-section sector-map-section" id="peta-perikanan">
+                <div class="container category-grid single-category-grid">
+                    <article class="category-card data-category-card map-category-card">
+                        <div aria-hidden="true" class="data-card-illustration">🗺️</div>
+                        <div class="category-heading"><span class="big-icon">⌖</span>
+                            <div>
+                                <h2>Peta Sebaran Perikanan</h2>
+                                <p>Peta interaktif data perikanan per kecamatan hingga desa atau kelurahan di Kabupaten
+                                    Bogor.</p>
+                            </div>
+                        </div>
+                        <div class="category-items data-category-items map-category-items">
+                            <div class="category-item"><span>🐟</span>Perikanan</div>
+                            <div class="category-item"><span>⌖</span>Kecamatan</div>
+                            <div class="category-item"><span>▦</span>Desa/Kelurahan</div>
+                            <div class="category-item"><span>↻</span>Data API</div>
+                        </div>
+                        <div class="category-control-row">
+                            <div class="category-select-control"><label for="kecamatan-select">Pilih
+                                    Kecamatan</label><select class="select2-kecamatan" id="kecamatan-select">
+                                    <option value="">Semua Kecamatan</option>
+                                </select></div>
+                            <div aria-label="Keterangan peta" class="category-map-legend"><span><i
+                                        class="legend-dot fishery"></i>Perikanan</span></div>
+                        </div>
+                        <div aria-label="Peta sebaran perikanan Kabupaten Bogor" class="category-map-panel"
+                            id="spartan-map"></div>
+                        <span class="btn btn-blue category-button data-category-button">Data Perikanan Aktif</span>
+                    </article>
+                </div>
+            </section>
+            <section class="section categories category-data-section price-category-section" id="harga-perikanan">
+                <div class="container">
+                    <div class="category-grid single-category-grid">
+                        <article class="category-card data-category-card stats-category-card">
+                            <div aria-hidden="true" class="data-card-illustration">📊</div>
+                            <div class="category-heading"><span class="big-icon">📊</span>
+                                <div>
+                                    <h2>Statistik Harga Komoditas Perikanan</h2>
+                                    <p>Ringkasan harga terendah, tertinggi, rata-rata, dan perubahan harga khusus
+                                        komoditas perikanan.</p>
+                                </div>
+                            </div>
+                            <div class="category-items data-category-items stats-category-items">
+                                <div class="category-item"><span>▾</span>Terendah</div>
+                                <div class="category-item"><span>▴</span>Tertinggi</div>
+                                <div class="category-item"><span>≈</span>Rata-Rata</div>
+                                <div class="category-item"><span>↗</span>Perbandingan</div>
+                            </div>
+                            <span class="btn btn-blue category-button data-category-button">Data Harga Perikanan</span>
+                        </article>
+                    </div>
+                    <div class="price-category-grid" id="price-cards-container">
+                        <article class="category-card price-category-card price-lowest-card">
+                            <div aria-hidden="true" class="data-card-illustration">↓</div>
+                            <div class="category-heading"><span class="big-icon">▾</span>
+                                <div>
+                                    <h2>Harga Terendah</h2>
+                                    <p>Harga akhir terendah komoditas perikanan</p>
+                                </div>
+                            </div>
+                            <div class="price-category-value"><span>Harga terkini</span>
+                                <h3 id="card-lowest-val">Rp —</h3>
+                            </div>
+                            <div class="category-items price-category-items">
+                                <div class="category-item"><span>▣</span><strong id="card-lowest-name">Memuat
+                                        data…</strong></div>
+                                <div class="category-item"><span>⌖</span><strong id="card-lowest-market">—</strong>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="category-card price-category-card price-highest-card">
+                            <div aria-hidden="true" class="data-card-illustration">↑</div>
+                            <div class="category-heading"><span class="big-icon">▴</span>
+                                <div>
+                                    <h2>Harga Tertinggi</h2>
+                                    <p>Harga akhir tertinggi komoditas perikanan</p>
+                                </div>
+                            </div>
+                            <div class="price-category-value"><span>Harga terkini</span>
+                                <h3 id="card-highest-val">Rp —</h3>
+                            </div>
+                            <div class="category-items price-category-items">
+                                <div class="category-item"><span>▣</span><strong id="card-highest-name">Memuat
+                                        data…</strong></div>
+                                <div class="category-item"><span>⌖</span><strong id="card-highest-market">—</strong>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="category-card price-category-card price-average-card">
+                            <div aria-hidden="true" class="data-card-illustration">≈</div>
+                            <div class="category-heading"><span class="big-icon">≈</span>
+                                <div>
+                                    <h2>Harga Rata-Rata</h2>
+                                    <p>Rata-rata harga komoditas perikanan</p>
+                                </div>
+                            </div>
+                            <div class="price-category-value"><span>Harga terkini</span>
+                                <h3 id="card-avg-val">Rp —</h3>
+                            </div>
+                            <div class="category-items price-category-items">
+                                <div class="category-item"><span>🐟</span><strong id="card-avg-name">Memuat
+                                        data…</strong></div>
+                                <div class="category-item"><span>↻</span><strong>Data terbaru</strong></div>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="category-grid single-category-grid category-data-gap">
+                        <article class="category-card data-category-card chart-category-card">
+                            <div aria-hidden="true" class="data-card-illustration">📈</div>
+                            <div class="category-heading"><span class="big-icon">↗</span>
+                                <div>
+                                    <h2>Grafik Perbandingan Harga Perikanan</h2>
+                                    <p>Perbandingan harga awal dan harga akhir komoditas perikanan.</p>
+                                </div>
+                            </div>
+                            <div class="category-items data-category-items chart-category-items">
+                                <div class="category-item"><span>◔</span>Harga Awal</div>
+                                <div class="category-item"><span>●</span>Harga Akhir</div>
+                                <div class="category-item"><span>10</span>Komoditas</div>
+                                <div class="category-item"><span>↻</span>Data API</div>
+                            </div>
+                            <div class="category-chart-panel" id="price-chart-container"></div><span
+                                class="btn btn-blue category-button data-category-button">Perbandingan Harga</span>
+                        </article>
+                    </div>
+                    <div class="category-grid single-category-grid category-data-gap">
+                        <article class="category-card data-category-card table-category-card">
+                            <div aria-hidden="true" class="data-card-illustration">▦</div>
+                            <div class="category-heading"><span class="big-icon">▦</span>
+                                <div>
+                                    <h2>Daftar Perkembangan Harga Perikanan</h2>
+                                    <p>Daftar harga difokuskan hanya pada komoditas sektor perikanan.</p>
+                                </div>
+                            </div>
+                            <div class="category-table-panel">
+                                <table class="commodity-table">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Komoditas</th>
+                                            <th>Satuan</th>
+                                            <th>Harga Awal</th>
+                                            <th>Harga Akhir</th>
+                                            <th>Perubahan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="commodity-table-body">
+                                        <tr>
+                                            <td class="table-empty-state" colspan="6">Memuat data harga perikanan...
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div><span class="btn btn-blue category-button data-category-button"
+                                id="commodity-sector-status">Komoditas Perikanan</span>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            <section class="section categories district-distribution-section single-sector-distribution"
+                id="distribusi-perikanan">
+                <div class="container category-grid single-category-grid">
+                    <article class="category-card data-category-card distribution-category-card">
+                        <div aria-hidden="true" class="data-card-illustration">📍</div>
+                        <div class="category-heading"><span class="big-icon">⌖</span>
+                            <div>
+                                <h2>Distribusi Perikanan Per Kecamatan</h2>
+                                <p>Visualisasi jumlah data perikanan berdasarkan wilayah kecamatan di Kabupaten Bogor.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="distribution-summary-grid single-sector-summary-grid">
+                            <article class="distribution-summary-card fishery"><span
+                                    class="distribution-summary-icon">🐟</span>
+                                <div><small>Total Perikanan</small><strong id="distribution-total-sector">—</strong>
+                                </div>
+                            </article>
+                            <article class="distribution-summary-card district"><span
+                                    class="distribution-summary-icon">⌖</span>
+                                <div><small>Total Kecamatan</small><strong id="distribution-total-districts">—</strong>
+                                </div>
+                            </article>
+                            <article class="distribution-summary-card village"><span
+                                    class="distribution-summary-icon">▦</span>
+                                <div><small>Desa/Kelurahan</small><strong id="distribution-total-villages">—</strong>
+                                </div>
+                            </article>
+                            <article class="distribution-summary-card active"><span
+                                    class="distribution-summary-icon">●</span>
+                                <div><small>Kecamatan Aktif</small><strong id="distribution-total-active">—</strong>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="distribution-donut-grid single-sector-donut-grid">
+                            <article class="district-chart-card fishery-chart-card">
+                                <header class="district-chart-header">
+                                    <div class="district-chart-title-wrap"><span aria-hidden="true"
+                                            class="district-chart-icon">🐟</span>
+                                        <div>
+                                            <h3>Total Perikanan Per Kecamatan</h3>
+                                            <p>Distribusi data perikanan</p>
+                                        </div>
+                                    </div><span class="distribution-live-badge"><i></i> Data API</span>
+                                </header>
+                                <div class="district-chart-body">
+                                    <div aria-label="Diagram donat total perikanan per kecamatan"
+                                        id="district-sector-chart" role="img"></div>
+                                </div>
+                            </article>
+                        </div>
+                        <span class="btn btn-blue category-button data-category-button"
+                            id="distribution-data-status">Memuat Distribusi</span>
+                    </article>
+                </div>
+            </section>
+        </section>
+        <section class="section section-soft-blue" id="layanan-perikanan">
+            <div class="container">
+                <div class="section-title-row">
+                    <h2 class="section-title"><span class="leaf-mark">❧</span>Ruang Informasi Perikanan</h2>
+                </div>
+                <div class="category-grid">
+                    <article class="category-card service-category-card production">
+                        <div aria-hidden="true" class="service-visual"><span class="service-visual-main">≋</span><span
+                                class="service-visual-badge">🐟</span></div>
+                        <div class="category-heading"><span class="big-icon">◔</span>
+                            <div>
+                                <h2>Budidaya Perikanan</h2>
+                                <p>Informasi budidaya, pakan ikan, kolam, teknologi, dan manajemen.</p>
+                            </div>
+                        </div>
+                        <div class="category-items">
+                            <div class="category-item"><span>≋</span>Budidaya</div>
+                            <div class="category-item"><span>◔</span>Pakan Ikan</div>
+                            <div class="category-item"><span>▣</span>Kolam</div>
+                        </div>
+                        <a class="btn btn-blue category-button" href="#statistik-perikanan">Buka Statistik Perikanan</a>
+                    </article>
+                    <article class="category-card service-category-card population">
+                        <div aria-hidden="true" class="service-visual"><span class="service-visual-main">⚓</span><span
+                                class="service-visual-badge">♜</span></div>
+                        <div class="category-heading"><span class="big-icon">⚓</span>
+                            <div>
+                                <h2>Perikanan Tangkap</h2>
+                                <p>Informasi tangkap, alat tangkap, pasar ikan, teknologi, dan manajemen.</p>
+                            </div>
+                        </div>
+                        <div class="category-items">
+                            <div class="category-item"><span>⚓</span>Tangkap</div>
+                            <div class="category-item"><span>♜</span>Alat Tangkap</div>
+                            <div class="category-item"><span>♙</span>Pasar Ikan</div>
+                        </div>
+                        <a class="btn btn-green category-button" href="umkm.html">Lihat Produk →</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section class="section" id="produk-perikanan">
+            <div class="container">
+                <div class="section-title-row">
+                    <h2 class="section-title"><span class="leaf-mark">❧</span>Produk Perikanan</h2><a
+                        class="section-link" href="umkm.html">Semua Produk →</a>
+                </div>
+                <div class="products-grid">
+                    <article class="product-card"><img alt="Bibit lele unggul" src="assets/images/content-02.jpg" />
+                        <div class="product-info">
+                            <h3>Bibit Lele Unggul</h3><small>1.000 ekor</small>
+                            <div class="price">Rp150.000</div><button class="buy-btn"
+                                onclick="buy('Bibit Lele Unggul')">🛒 Beli
+                                Sekarang</button>
+                        </div>
+                    </article>
+                    <article class="product-card"><img alt="Jaring ikan premium" src="assets/images/content-04.jpg" />
+                        <div class="product-info">
+                            <h3>Jaring Ikan Premium</h3><small>1.5 inch</small>
+                            <div class="price">Rp450.000</div><button class="buy-btn"
+                                onclick="buy('Jaring Ikan Premium')">🛒 Beli
+                                Sekarang</button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section class="section section-soft-blue" id="edukasi-perikanan">
+            <div class="container">
+                <div class="section-title-row">
+                    <h2 class="section-title"><span class="leaf-mark">▧</span>Edukasi Perikanan</h2><a
+                        class="section-link" href="informasi.html#berita">Semua Berita →</a>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card">
+                        <div class="news-image"><img alt="Budidaya lele" src="assets/images/content-06.jpg" /><span
+                                class="tag blue">Perikanan</span></div>
+                        <div class="news-body">
+                            <h3>Cara Budidaya Lele yang Baik dan Benar</h3>
+                            <div class="news-meta"><span>22 Mei 2024</span><span>◉ 980</span></div>
+                        </div>
+                    </article>
+                    <article class="news-card">
+                        <div class="news-image"><img alt="Kolam budidaya ikan"
+                                src="assets/images/content-08.jpg" /><span class="tag blue">Perikanan</span></div>
+                        <div class="news-body">
+                            <h3>Teknologi Terbaru dalam Budidaya Ikan</h3>
+                            <div class="news-meta"><span>18 Mei 2024</span><span>◉ 870</span></div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section class="container cta">
+            <p>Peta sebaran dan perkembangan harga komoditas perikanan tersedia langsung pada halaman ini.</p><a
+                class="btn btn-blue" href="#statistik-perikanan">Lihat Statistik Perikanan</a>
+        </section>
+    </main>
+    <footer class="site-footer" id="kontak">
+        <div class="footer-wave">
+            <svg height="100%" preserveaspectratio="none" version="1.1" viewbox="0 0 1600 900" width="100%"
+                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <defs>
+                    <lineargradient id="bg" x1="0%" x2="100%" y1="0%" y2="0%">
+                        <stop offset="0%" style="stop-color:#0878bd;stop-opacity:.4"></stop>
+                        <stop offset="50%" style="stop-color:#15963a;stop-opacity:.5"></stop>
+                        <stop offset="100%" style="stop-color:#10772e;stop-opacity:.8"></stop>
+                    </lineargradient>
+                    <path
+                        d="M-363.852,502.589c0,0,236.988-41.997,505.475,0s371.981,38.998,575.971,0s293.985-39.278,505.474,5.859s493.475,48.368,716.963-4.995v560.106H-363.852V502.589z"
+                        fill="url(#bg)" id="wave"></path>
+                </defs>
+                <g>
+                    <use opacity=".3" xlink:href="#wave">
+                        <animatetransform attributename="transform" attributetype="XML" dur="10s"
+                            repeatcount="indefinite" type="translate" values="270 230;-334 180;270 230">
+                        </animatetransform>
+                    </use>
+                    <use opacity=".6" xlink:href="#wave">
+                        <animatetransform attributename="transform" attributetype="XML" dur="8s"
+                            repeatcount="indefinite" type="translate" values="-270 230;243 220;-270 230">
+                        </animatetransform>
+                    </use>
+                    <use opacity=".9" xlink:href="#wave">
+                        <animatetransform attributename="transform" attributetype="XML" dur="6s"
+                            repeatcount="indefinite" type="translate" values="0 230;-140 200;0 230"></animatetransform>
+                    </use>
+                </g>
+            </svg>
+        </div>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand"><a class="brand" href="index.html"><img alt="Logo SPARTAN" class="brand-logo"
+                            src="https://spartan.bogorkab.go.id/assets/img/17350108258803.png" /><span
+                            class="brand-copy"><strong>SPARTAN</strong><small>Ternak &amp; Perikanan</small></span></a>
+                    <p>Portal informasi peternakan dan perikanan Kabupaten Bogor.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Sektor</h4>
+                    <ul>
+                        <li><a href="peternakan.html">Peternakan</a></li>
+                        <li><a href="perikanan.html">Perikanan</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Informasi</h4>
+                    <ul>
+                        <li><a href="umkm.html">Produk UMKM</a></li>
+                        <li><a href="informasi.html#berita">Berita &amp; Edukasi</a></li>
+                        <li><a href="index.html">Beranda</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Kontak</h4>
+                    <ul class="contact-list">
+                        <li>⌖ <span>Kabupaten Bogor, Jawa Barat</span></li>
+                        <li>☎ <span>Dinas Perikanan dan Peternakan</span></li>
+                        <li>↗ <span>diskanak.bogorkab.go.id</span></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Ikuti Kami</h4>
+                    <div class="socials"><a aria-label="Facebook" href="#">f</a><a aria-label="Instagram"
+                            href="#">◎</a><a aria-label="YouTube" href="#">▶</a><a aria-label="WhatsApp" href="#">✆</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright"><span>© 2026 SPARTAN. Hak cipta dilindungi.</span><span>Peternakan • Perikanan • UMKM
+                    • Informasi</span></div>
+        </div>
+    </footer>
+    <div aria-live="polite" class="toast" id="toast" role="status"></div>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/sector-data.js"></script>
+</body>
+
+</html>

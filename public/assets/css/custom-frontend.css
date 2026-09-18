@@ -1,0 +1,61 @@
+/* Font Inter for Front End */
+body.front-page {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+body.front-page * {
+    font-family: inherit;
+}
+
+.light-style .landing-hero {
+    /* background: rgb(1, 76, 161) !important; */
+    background: linear-gradient(to right, #03a212 , #d6f06e) !important;
+}
+.landing-hero {
+    padding-top: 9rem !important;
+}
+.btn-secondary {
+    background: rgb(1, 76, 161) !important;
+}
+.bg-secondary {
+    background: rgb(1, 76, 161) !important;
+}
+@media (min-width: 992px) {
+    .border-lg-start {
+        border-left: 1px solid #dee2e6; /* Sesuaikan warna border sesuai kebutuhan */
+    }
+}
+ol.list-cara-pendaftaran li {
+    margin-bottom: 6px; /* Sesuaikan nilai ini untuk mengatur jarak antar item */
+}
+.card-hover-effect {
+    transition: all 0.3s ease-in-out;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+}
+
+.card-hover-effect:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-color: rgb(1, 76, 161) !important; /* Warna border saat hover */
+}
+
+.card-hover-effect .card-body {
+    transition: color 0.3s ease-in-out;
+}
+
+.card-hover-effect:hover .card-title {
+    color: rgb(1, 76, 161) !important; /* Warna teks judul saat hover */
+}
+
+.card-hover-effect:hover .btn {
+    /* background-color: rgb(1, 76, 161) !important; Ubah warna tombol saat hover */
+    /* color: #fff; */
+    border-color: rgb(1, 76, 161) !important;
+}
+.sidebar-sticky {
+    position: -webkit-sticky; /* Untuk browser Webkit seperti Safari */
+    position: sticky;
+    top: 125px; /* Jarak dari atas container */
+    align-self: flex-start; /* Untuk menyelaraskan sticky sidebar dalam flex container */
+}

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Produk UMKM, berita, dan edukasi peternakan serta perikanan." name="description"/>
+<title>SPARTAN — Informasi</title>
+<link href="assets/css/styles.css" rel="stylesheet"/>
+</head>
+<body class="page-info" data-page="info">
+<header class="site-header">
+<div class="container header-inner">
+<a aria-label="SPARTAN beranda" class="brand" href="index.html">
+<img alt="Logo SPARTAN" class="brand-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'" src="https://spartan.bogorkab.go.id/assets/img/17350108258803.png"/><span class="brand-copy header-brand-fallback"><strong>SPARTAN</strong><small>Ternak &amp; Perikanan</small></span>
+</a>
+<nav aria-label="Navigasi utama" class="desktop-nav"><a data-nav="home" href="index.html">Beranda</a><a data-nav="livestock" href="peternakan.html">Peternakan</a><a data-nav="fishery" href="perikanan.html">Perikanan</a><a data-nav="umkm" href="umkm.html">UMKM</a><a data-nav="info" href="informasi.html">Informasi</a></nav>
+<div class="header-actions">
+<form class="search-box" onsubmit="handleSearch(event)">
+<input aria-label="Cari informasi" placeholder="Cari informasi..." type="search"/>
+<button aria-label="Cari" type="submit">⌕</button>
+</form>
+<button class="login-btn" onclick="showToast('Fitur login siap dihubungkan ke sistem autentikasi.')" type="button">♙ <span>Login</span></button>
+<button aria-expanded="false" aria-label="Buka menu" class="menu-toggle" id="menuToggle" type="button">☰</button>
+</div>
+</div>
+</header>
+<div class="mobile-panel" id="mobilePanel">
+<nav aria-label="Navigasi seluler" class="mobile-nav"><a data-nav="home" href="index.html">Beranda</a><a data-nav="livestock" href="peternakan.html">Peternakan</a><a data-nav="fishery" href="perikanan.html">Perikanan</a><a data-nav="umkm" href="umkm.html">UMKM</a><a data-nav="info" href="informasi.html">Informasi</a></nav>
+<form class="search-box mobile-search" onsubmit="handleSearch(event)">
+<input aria-label="Cari informasi" placeholder="Cari informasi..." type="search"/>
+<button aria-label="Cari" type="submit">⌕</button>
+</form>
+<button class="login-btn mobile-login" onclick="showToast('Fitur login siap dihubungkan ke sistem autentikasi.')" type="button">♙ Login</button>
+</div>
+<main>
+<section class="page-hero info">
+<div class="container page-hero-inner">
+<div class="breadcrumbs"><a href="index.html">Beranda</a><span>›</span><span>Produk, Berita &amp; Edukasi</span></div>
+<span class="page-kicker">Informasi SPARTAN</span>
+<h1>Produk, Berita &amp; Edukasi</h1>
+<p>Kumpulan produk UMKM, artikel peternakan dan perikanan, informasi cuaca, serta akses komunitas dalam satu halaman.</p>
+<div class="page-hero-actions"><a class="btn btn-green" href="umkm.html">Buka UMKM</a><a class="btn btn-ghost" href="#berita">Baca berita</a></div>
+</div>
+<div aria-hidden="true" class="page-hero-symbol">▧</div>
+</section>
+<section class="section" id="produk">
+<div class="container">
+<div class="section-title-row">
+<h2 class="section-title"><span class="leaf-mark">❧</span>Produk UMKM Pilihan</h2>
+<a class="section-link" href="umkm.html">Buka Etalase UMKM →</a>
+</div>
+<div class="products-grid">
+<article class="product-card"><img alt="Pakan sapi premium" src="assets/images/content-01.jpg"/>
+<div class="product-info">
+<h3>Pakan Sapi Premium</h3><small>25kg</small>
+<div class="price">Rp275.000</div><button class="buy-btn" onclick="buy('Pakan Sapi Premium')">🛒 Beli
+                                Sekarang</button>
+</div>
+</article>
+<article class="product-card"><img alt="Bibit lele unggul" src="assets/images/content-02.jpg"/>
+<div class="product-info">
+<h3>Bibit Lele Unggul</h3><small>1.000 ekor</small>
+<div class="price">Rp150.000</div><button class="buy-btn" onclick="buy('Bibit Lele Unggul')">🛒 Beli
+                                Sekarang</button>
+</div>
+</article>
+<article class="product-card"><img alt="Pakan ayam petelur" src="assets/images/content-03.jpg"/>
+<div class="product-info">
+<h3>Pakan Ayam Petelur</h3><small>20kg</small>
+<div class="price">Rp230.000</div><button class="buy-btn" onclick="buy('Pakan Ayam Petelur')">🛒 Beli
+                                Sekarang</button>
+</div>
+</article>
+<article class="product-card"><img alt="Jaring ikan premium" src="assets/images/content-04.jpg"/>
+<div class="product-info">
+<h3>Jaring Ikan Premium</h3><small>1.5 inch</small>
+<div class="price">Rp450.000</div><button class="buy-btn" onclick="buy('Jaring Ikan Premium')">🛒 Beli
+                                Sekarang</button>
+</div>
+</article>
+</div>
+</div>
+</section>
+<section class="section" id="berita">
+<div class="container">
+<div class="section-title-row">
+<h2 class="section-title"><span class="leaf-mark">▧</span>Berita &amp; Edukasi Terbaru</h2>
+<a class="section-link" href="#berita">Lihat Semua Artikel →</a>
+</div>
+<div class="news-layout" id="edukasi">
+<div class="news-grid">
+<article class="news-card">
+<div class="news-image"><img alt="Sapi perah" src="assets/images/content-05.jpg"/><span class="tag green">Peternakan</span></div>
+<div class="news-body">
+<h3>5 Tips Meningkatkan Produksi Susu Sapi Perah</h3>
+<div class="news-meta"><span>24 Mei 2024</span><span>◉ 1.2K</span></div>
+</div>
+</article>
+<article class="news-card">
+<div class="news-image"><img alt="Budidaya lele" src="assets/images/content-06.jpg"/><span class="tag blue">Perikanan</span></div>
+<div class="news-body">
+<h3>Cara Budidaya Lele yang Baik dan Benar</h3>
+<div class="news-meta"><span>22 Mei 2024</span><span>◉ 980</span></div>
+</div>
+</article>
+<article class="news-card">
+<div class="news-image"><img alt="Kandang ayam" src="assets/images/content-07.jpg"/><span class="tag green">Peternakan</span></div>
+<div class="news-body">
+<h3>Manajemen Kandang Ayam Modern</h3>
+<div class="news-meta"><span>20 Mei 2024</span><span>◉ 1.1K</span></div>
+</div>
+</article>
+<article class="news-card">
+<div class="news-image"><img alt="Kolam budidaya ikan" src="assets/images/content-08.jpg"/><span class="tag blue">Perikanan</span></div>
+<div class="news-body">
+<h3>Teknologi Terbaru dalam Budidaya Ikan</h3>
+<div class="news-meta"><span>18 Mei 2024</span><span>◉ 870</span></div>
+</div>
+</article>
+</div>
+<aside aria-label="Informasi cuaca" class="weather-card">
+<h3>Cuaca &amp; Info</h3>
+<div class="weather-city">Kabupaten Bogor, Jawa Barat</div><span class="weather-date" id="weatherDate">Sabtu, 25 Mei
+                            2024</span>
+<div class="temperature-row"><span class="cloud">☁</span><span class="temperature">29°C</span><span class="sun">☀</span></div>
+<div class="condition">Cerah Berawan</div>
+<div class="humidity">Humidity: 68%</div>
+<div class="weather-range"><span>Min —</span><span>Max —</span></div>
+</aside>
+</div>
+</div>
+</section>
+<section class="container cta"><p>Bergabung dengan komunitas kami dan dapatkan informasi terbaru seputar peternakan dan perikanan.</p><button onclick="showToast('Formulir pendaftaran komunitas dapat dihubungkan ke backend.')" type="button">♟   Daftar Sekarang</button></section>
+</main>
+<footer class="site-footer" id="kontak">
+<div class="footer-wave">
+<svg height="100%" preserveaspectratio="none" version="1.1" viewbox="0 0 1600 900" width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<lineargradient id="bg" x1="0%" x2="100%" y1="0%" y2="0%"><stop offset="0%" style="stop-color:#0878bd;stop-opacity:.4"></stop><stop offset="50%" style="stop-color:#15963a;stop-opacity:.5"></stop><stop offset="100%" style="stop-color:#10772e;stop-opacity:.8"></stop></lineargradient>
+<path d="M-363.852,502.589c0,0,236.988-41.997,505.475,0s371.981,38.998,575.971,0s293.985-39.278,505.474,5.859s493.475,48.368,716.963-4.995v560.106H-363.852V502.589z" fill="url(#bg)" id="wave"></path>
+</defs>
+<g><use opacity=".3" xlink:href="#wave"><animatetransform attributename="transform" attributetype="XML" dur="10s" repeatcount="indefinite" type="translate" values="270 230;-334 180;270 230"></animatetransform></use><use opacity=".6" xlink:href="#wave"><animatetransform attributename="transform" attributetype="XML" dur="8s" repeatcount="indefinite" type="translate" values="-270 230;243 220;-270 230"></animatetransform></use><use opacity=".9" xlink:href="#wave"><animatetransform attributename="transform" attributetype="XML" dur="6s" repeatcount="indefinite" type="translate" values="0 230;-140 200;0 230"></animatetransform></use></g>
+</svg>
+</div>
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand"><a class="brand" href="index.html"><img alt="Logo SPARTAN" class="brand-logo" src="https://spartan.bogorkab.go.id/assets/img/17350108258803.png"/><span class="brand-copy"><strong>SPARTAN</strong><small>Ternak &amp; Perikanan</small></span></a><p>Portal informasi peternakan dan perikanan Kabupaten Bogor.</p></div>
+<div class="footer-col"><h4>Sektor</h4><ul><li><a href="peternakan.html">Peternakan</a></li><li><a href="perikanan.html">Perikanan</a></li></ul></div>
+<div class="footer-col"><h4>Informasi</h4><ul><li><a href="umkm.html">Produk UMKM</a></li><li><a href="informasi.html#berita">Berita &amp; Edukasi</a></li><li><a href="index.html">Beranda</a></li></ul></div>
+<div class="footer-col"><h4>Kontak</h4><ul class="contact-list"><li>⌖ <span>Kabupaten Bogor, Jawa Barat</span></li><li>☎ <span>Dinas Perikanan dan Peternakan</span></li><li>↗ <span>diskanak.bogorkab.go.id</span></li></ul></div>
+<div class="footer-col"><h4>Ikuti Kami</h4><div class="socials"><a aria-label="Facebook" href="#">f</a><a aria-label="Instagram" href="#">◎</a><a aria-label="YouTube" href="#">▶</a><a aria-label="WhatsApp" href="#">✆</a></div></div>
+</div>
+<div class="copyright"><span>© 2026 SPARTAN. Hak cipta dilindungi.</span><span>Peternakan • Perikanan • UMKM • Informasi</span></div>
+</div>
+</footer>
+<div aria-live="polite" class="toast" id="toast" role="status"></div>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

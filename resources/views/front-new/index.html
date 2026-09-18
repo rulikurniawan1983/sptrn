@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="id">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta content="Portal informasi peternakan dan perikanan Kabupaten Bogor." name="description" />
+  <title>SPARTAN — Beranda</title>
+  <link rel="preload" as="video" href="assets/images/bg.webm" fetchpriority="high" />
+  <link href="assets/css/styles.css?v=8" rel="stylesheet" />
+</head>
+
+<body class="page-home" data-page="home">
+
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a aria-label="SPARTAN beranda" class="brand" href="index.html">
+        <img alt="Logo SPARTAN" class="brand-logo"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"
+          src="https://spartan.bogorkab.go.id/assets/img/17350108258803.png" /><span
+          class="brand-copy header-brand-fallback"><strong>SPARTAN</strong><small>Ternak &amp; Perikanan</small></span>
+      </a>
+      <nav aria-label="Navigasi utama" class="desktop-nav"><a data-nav="home" href="index.html">Beranda</a><a
+          data-nav="livestock" href="peternakan.html">Peternakan</a><a data-nav="fishery"
+          href="perikanan.html">Perikanan</a><a data-nav="umkm" href="umkm.html">UMKM</a><a data-nav="info"
+           href="informasi.html">Informasi</a></nav>
+      <div class="header-actions">
+        <form class="search-box" onsubmit="handleSearch(event)">
+          <input aria-label="Cari informasi" placeholder="Cari informasi..." type="search" />
+          <button aria-label="Cari" type="submit">⌕</button>
+        </form>
+        <button class="login-btn" onclick="showToast('Fitur login siap dihubungkan ke sistem autentikasi.')"
+          type="button">♙ <span>Login</span></button>
+        <button aria-expanded="false" aria-label="Buka menu" class="menu-toggle" id="menuToggle"
+          type="button">☰</button>
+      </div>
+    </div>
+  </header>
+  <div class="mobile-panel" id="mobilePanel">
+    <nav aria-label="Navigasi seluler" class="mobile-nav"><a data-nav="home" href="index.html">Beranda</a><a
+        data-nav="livestock" href="peternakan.html">Peternakan</a><a data-nav="fishery"
+        href="perikanan.html">Perikanan</a><a data-nav="umkm" href="umkm.html">UMKM</a><a data-nav="info"
+        href="informasi.html">Informasi</a></nav>
+    <form class="search-box mobile-search" onsubmit="handleSearch(event)">
+      <input aria-label="Cari informasi" placeholder="Cari informasi..." type="search" />
+      <button aria-label="Cari" type="submit">⌕</button>
+    </form>
+    <button class="login-btn mobile-login" onclick="showToast('Fitur login siap dihubungkan ke sistem autentikasi.')"
+      type="button">♙ Login</button>
+  </div>
+  <main>
+    <section class="hero" id="beranda">
+      <video class="hero-video"
+        style="z-index: -4; filter: saturate(1.08) contrast(1.02); transform: scale(1.08); object-position: center 48%;"
+        autoplay loop muted playsinline>
+        <source src="assets/images/bg.webm" type="video/webm">
+      </video>
+      <div class="container">
+        <div class="hero-content">
+          <h1>SPARTAN</h1>
+          <p class="hero-copy">Menuju Pilar Ketahanan Pangan Nasional.</p>
+          <!-- <div class="hero-actions">
+            <a class="btn btn-green" href="#peternakan">♣ Jelajahi Peternakan</a>
+            <a class="btn btn-blue" href="#perikanan">◆ Jelajahi Perikanan</a>
+          </div> -->
+        </div>
+      </div>
+      <div class="hero-lower">
+        <div class="value-strip">
+          <div class="value-item"><span class="value-icon green">▣</span>
+            <div><strong id="realtime-day"></strong>
+            </div>
+          </div>
+          <div class="value-item"><span class="value-icon blue">▥</span>
+            <div><strong id="realtime-date"></strong>
+            </div>
+          </div>
+          <div class="value-item"><span class="value-icon orange">⬡</span>
+            <div><strong id="realtime-time"></strong>
+            </div>
+          </div>
+          <div class="value-item"><span class="value-icon purple">♥</span>
+            <div><strong id="realtime-zone"></strong>
+            </div>
+          </div>
+        </div>
+        <div aria-label="Pilihan produk UMKM" class="umkm-strip">
+          <a class="umkm-strip-item livestock" href="umkm.html#produk"><span class="umkm-strip-icon">🌾</span>
+            <div><strong>Pakan Ternak</strong><small>Produk pendukung usaha peternakan</small></div>
+          </a>
+          <a class="umkm-strip-item fishery" href="umkm.html#produk"><span class="umkm-strip-icon">🐟</span>
+            <div><strong>Benih &amp; Sarana Ikan</strong><small>Kebutuhan budidaya perikanan</small></div>
+          </a>
+          <a class="umkm-strip-item processed" href="umkm.html#kategori-umkm"><span class="umkm-strip-icon">🧺</span>
+            <div><strong>Produk Olahan</strong><small>Hasil ternak dan ikan bernilai tambah</small></div>
+          </a>
+          <a class="umkm-strip-item market" href="umkm.html"><span class="umkm-strip-icon">🏪</span>
+            <div><strong>Etalase UMKM</strong><small>Temukan produk lokal Kabupaten Bogor</small></div>
+          </a>
+        </div>
+      </div>
+    </section>
+    <section class="section categories">
+      <div class="container category-grid">
+        <article class="category-card farm" id="peternakan">
+          <div class="category-heading"><span class="big-icon">🐾</span>
+            <div>
+              <h2>Perikanan</h2>
+             
+            </div>
+          </div>
+          <div class="category-items">
+            <div class="category-item"><span>≋</span>Budidaya</div>
+            <div class="category-item"><span>⚓</span>Tangkap</div>
+            <div class="category-item"><span>◔</span>Pakan Ikan</div>
+            <div class="category-item"><span>▣</span>Kolam</div>
+            <div class="category-item"><span>♜</span>Alat Tangkap</div>
+            <div class="category-item"><span>♙</span>Pasar Ikan</div>
+            <div class="category-item"><span>⚙</span>Teknologi</div>
+            <div class="category-item"><span>▦</span>Manajemen</div>
+          </div>
+          <a class="btn btn-blue category-button" href="perikanan.html">Lihat Selengkapnya →</a>
+        </article>
+        <article class="category-card fishery" id="perikanan">
+          <div class="category-heading"><span class="big-icon">🐟</span>
+            <div>
+              <div>
+                <h2>Peternakan</h2>
+               
+              </div>
+            </div>
+            <div class="category-items">
+              <div class="category-item"><span>🐄</span>Sapi</div>
+              <div class="category-item"><span>🐐</span>Kambing</div>
+              <div class="category-item"><span>🐔</span>Ayam</div>
+              <div class="category-item"><span>🦆</span>Itik</div>
+              <div class="category-item"><span>🧺</span>Pakan</div>
+              <div class="category-item"><span>✚</span>Kesehatan</div>
+              <div class="category-item"><span>⌂</span>Kandang</div>
+              <div class="category-item"><span>⚙</span>Manajemen</div>
+            </div>
+            <a class="btn btn-green category-button" href="peternakan.html">Lihat Selengkapnya →</a>
+        </article>
+      </div>
+    </section>
+    <section class="section section-soft-blue">
+      <div class="container">
+        <div class="section-title-row">
+          <h2 class="section-title"><span class="leaf-mark">◆</span>Akses Cepat</h2>
+        </div>
+        <p class="section-lead">Konten dipisahkan menurut fungsi agar pengunjung langsung menuju sektor, data, produk,
+          atau berita yang dibutuhkan.</p>
+        <div class="portal-grid">
+          <a class="portal-card green" href="peternakan.html"><span class="portal-icon">🐄</span>
+            <h2>Peternakan</h2>
+            <p>Produksi, populasi ternak, kesehatan hewan, produk, dan edukasi peternakan.</p><strong>Buka halaman
+              peternakan →</strong>
+          </a>
+          <a class="portal-card blue" href="perikanan.html"><span class="portal-icon">🐟</span>
+            <h2>Perikanan</h2>
+            <p>Budidaya, perikanan tangkap, sarana, produk, dan edukasi perikanan.</p><strong>Buka halaman perikanan
+              →</strong>
+          </a>
+          <a class="portal-card orange" href="umkm.html"><span class="portal-icon">🏪</span>
+            <h2>UMKM</h2>
+            <p>Etalase produk lokal peternakan, perikanan, sarana usaha, dan hasil olahan UMKM Kabupaten Bogor.</p>
+            <strong>Buka etalase UMKM →</strong>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer" id="kontak">
+    <div class="footer-wave">
+      <svg height="100%" preserveaspectratio="none" version="1.1" viewbox="0 0 1600 900" width="100%"
+        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs>
+          <lineargradient id="bg" x1="0%" x2="100%" y1="0%" y2="0%">
+            <stop offset="0%" style="stop-color:#0878bd;stop-opacity:.4"></stop>
+            <stop offset="50%" style="stop-color:#15963a;stop-opacity:.5"></stop>
+            <stop offset="100%" style="stop-color:#10772e;stop-opacity:.8"></stop>
+          </lineargradient>
+          <path
+            d="M-363.852,502.589c0,0,236.988-41.997,505.475,0s371.981,38.998,575.971,0s293.985-39.278,505.474,5.859s493.475,48.368,716.963-4.995v560.106H-363.852V502.589z"
+            fill="url(#bg)" id="wave"></path>
+        </defs>
+        <g>
+          <use opacity=".3" xlink:href="#wave">
+            <animatetransform attributename="transform" attributetype="XML" dur="10s" repeatcount="indefinite"
+              type="translate" values="270 230;-334 180;270 230"></animatetransform>
+          </use>
+          <use opacity=".6" xlink:href="#wave">
+            <animatetransform attributename="transform" attributetype="XML" dur="8s" repeatcount="indefinite"
+              type="translate" values="-270 230;243 220;-270 230"></animatetransform>
+          </use>
+          <use opacity=".9" xlink:href="#wave">
+            <animatetransform attributename="transform" attributetype="XML" dur="6s" repeatcount="indefinite"
+              type="translate" values="0 230;-140 200;0 230"></animatetransform>
+          </use>
+        </g>
+      </svg>
+    </div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a class="brand" href="index.html"><img alt="Logo SPARTAN" class="brand-logo"
+              src="https://spartan.bogorkab.go.id/assets/img/17350108258803.png" /><span
+              class="brand-copy"><strong>SPARTAN</strong><small>Ternak &amp; Perikanan</small></span></a>
+          <p>Portal informasi peternakan dan perikanan Kabupaten Bogor.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Sektor</h4>
+          <ul>
+            <li><a href="peternakan.html">Peternakan</a></li>
+            <li><a href="perikanan.html">Perikanan</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Informasi</h4>
+          <ul>
+            <li><a href="umkm.html">Produk UMKM</a></li>
+            <li><a href="informasi.html#berita">Berita &amp; Edukasi</a></li>
+            <li><a href="index.html">Beranda</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kontak</h4>
+          <ul class="contact-list">
+            <li>⌖ <span>Kabupaten Bogor, Jawa Barat</span></li>
+            <li>☎ <span>Dinas Perikanan dan Peternakan</span></li>
+            <li>↗ <span>diskanak.bogorkab.go.id</span></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Ikuti Kami</h4>
+          <div class="socials"><a aria-label="Facebook" href="#">f</a><a aria-label="Instagram" href="#">◎</a><a
+              aria-label="YouTube" href="#">▶</a><a aria-label="WhatsApp" href="#">✆</a></div>
+        </div>
+      </div>
+      <div class="copyright"><span>© 2026 SPARTAN. Hak cipta dilindungi.</span><span>Peternakan • Perikanan • UMKM •
+          Informasi</span></div>
+    </div>
+  </footer>
+  <div aria-live="polite" class="toast" id="toast" role="status"></div>
+  <script src="assets/js/app.js"></script>
+</body>
+
+</html><!-- DarkForge Pipeline Trigger -->

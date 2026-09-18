@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="Informasi peternakan, produksi, populasi, dan layanan kesehatan hewan." name="description" />
+    <title>SPARTAN — Peternakan</title>
+    <link rel="preload" as="video" href="assets/images/peternakan.webm" fetchpriority="high" />
+    <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <link href="assets/css/styles.css?v=8" rel="stylesheet" />
+</head>
+
+<body class="page-livestock" data-page="livestock" data-sector="peternakan">
+    <header class="site-header">
+        <div class="container header-inner">
+            <a aria-label="SPARTAN beranda" class="brand" href="index.html">
+                <img alt="Logo SPARTAN" class="brand-logo"
+                    onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"
+                    src="https://spartan.bogorkab.go.id/assets/img/17350108258803.png" /><span
+                    class="brand-copy header-brand-fallback"><strong>SPARTAN</strong><small>Ternak &amp;
+                        Perikanan</small></span>
+            </a>
+            <nav aria-label="Navigasi utama" class="desktop-nav"><a data-nav="home" href="index.html">Beranda</a><a
+                    data-nav="livestock" href="peternakan.html">Peternakan</a><a data-nav="fishery"
+                    href="perikanan.html">Perikanan</a><a data-nav="umkm" href="umkm.html">UMKM</a><a data-nav="info"
+                    href="informasi.html">Informasi</a></nav>
+            <div class="header-actions">
+                <form class="search-box" onsubmit="handleSearch(event)">
+                    <input aria-label="Cari informasi" placeholder="Cari informasi..." type="search" />
+                    <button aria-label="Cari" type="submit">⌕</button>
+                </form>
+                <button class="login-btn" onclick="showToast('Fitur login siap dihubungkan ke sistem autentikasi.')"
+                    type="button">♙ <span>Login</span></button>
+                <button aria-expanded="false" aria-label="Buka menu" class="menu-toggle" id="menuToggle"
+                    type="button">☰</button>
+            </div>
+        </div>
+    </header>
+    <div class="mobile-panel" id="mobilePanel">
+        <nav aria-label="Navigasi seluler" class="mobile-nav"><a data-nav="home" href="index.html">Beranda</a><a
+                data-nav="livestock" href="peternakan.html">Peternakan</a><a data-nav="fishery"
+                href="perikanan.html">Perikanan</a><a data-nav="umkm" href="umkm.html">UMKM</a><a data-nav="info"
+                href="informasi.html">Informasi</a></nav>
+        <form class="search-box mobile-search" onsubmit="handleSearch(event)">
+            <input aria-label="Cari informasi" placeholder="Cari informasi..." type="search" />
+            <button aria-label="Cari" type="submit">⌕</button>
+        </form>
+        <button class="login-btn mobile-login"
+            onclick="showToast('Fitur login siap dihubungkan ke sistem autentikasi.')" type="button">♙ Login</button>
+    </div>
+    <main>
+        <section class="page-hero livestock">
+            <video class="hero-video" autoplay loop muted playsinline>
+                <source src="assets/images/peternakan.webm" type="video/webm">
+            </video>
+            <div class="container page-hero-inner">
+                <div class="breadcrumbs"><a href="index.html">Beranda</a><span>›</span><span>Peternakan</span></div>
+                <span class="page-kicker">Sektor SPARTAN</span>
+                <h1>Peternakan</h1>
+                <p>Halaman khusus informasi produksi, populasi, layanan kesehatan hewan, produk, dan edukasi peternakan
+                    Kabupaten Bogor.</p>
+                <div class="page-hero-actions"><a class="btn btn-green" href="#produksi-populasi-section">Lihat
+                        layanan</a><a class="btn btn-ghost" href="#statistik-peternakan">Buka statistik peternakan</a>
+                </div>
+            </div>
+
+        </section>
+        <!----
+        <section class="section sector-intro">
+            <div class="container category-grid single-category-grid">
+                <article class="category-card farm" id="ringkasan-peternakan">
+                    <div class="category-heading">
+                        <div>
+                            <h2>Data Sektoral SPARTAN</h2>
+                           
+                        </div>
+                    </div>
+                    <div class="category-items">
+                        <div class="category-item"><span>🐄</span>Sapi</div>
+                        <div class="category-item"><span>🐐</span>Kambing</div>
+                        <div class="category-item"><span>🐔</span>Ayam</div>
+                        <div class="category-item"><span>🦆</span>Itik</div>
+                        <div class="category-item"><span>🧺</span>Pakan</div>
+                        <div class="category-item"><span>✚</span>Kesehatan</div>
+                        <div class="category-item"><span>⌂</span>Kandang</div>
+                        <div class="category-item"><span>⚙</span>Manajemen</div>
+                    </div>
+                    <a class="btn btn-green category-button" href="#statistik-peternakan">Lihat Data &amp; Statistik
+                        →</a>
+                </article>
+            </div>
+        </section> -->
+        <section aria-labelledby="judul-statistik-peternakan" class="sector-statistics" id="statistik-peternakan">
+            <div class="sector-data-banner">
+                <div class="container category-grid single-category-grid">
+                    <article class="category-card farm" id="ringkasan-peternakan">
+                        <div class="category-heading">
+                            <div>
+                                <h2>Data Sektoral SPARTAN</h2>
+                               
+                            </div>
+                        </div>
+                        <div class="category-items">
+                            <div class="category-item"><span>🐄</span>Sapi</div>
+                            <div class="category-item"><span>🐐</span>Kambing</div>
+                            <div class="category-item"><span>🐔</span>Ayam</div>
+                            <div class="category-item"><span>🦆</span>Itik</div>
+                            <div class="category-item"><span>🧺</span>Pakan</div>
+                            <div class="category-item"><span>✚</span>Kesehatan</div>
+                            <div class="category-item"><span>⌂</span>Kandang</div>
+                            <div class="category-item"><span>⚙</span>Manajemen</div>
+                        </div>
+                        <a class="btn btn-green category-button" href="#statistik-peternakan">Lihat Data &amp; Statistik
+                            →</a>
+                    </article>
+                </div>
+
+            </div>
+            <div class="mini-data-strip sector-mini-data-strip">
+                <div class="stats-strip">
+                    <div class="stat-item"><span class="stat-icon">Rp.</span>
+                        <div><b id="stat-avg">—</b><small id="stat-avg-market">Rata-rata harga</small></div>
+                    </div>
+                    <div class="stat-item"><span class="stat-icon">Rp.</span>
+                        <div><b id="stat-low">—</b><small id="stat-low-market">Harga terendah</small></div>
+                    </div>
+                    <div class="stat-item"><span class="stat-icon">Rp.</span>
+                        <div><b id="stat-high">—</b><small id="stat-high-market">Harga tertinggi</small></div>
+                    </div>
+                    <div class="stat-item"><span class="stat-icon">🐄</span>
+                        <div><b id="stat-count">—</b><small id="stat-count-label">komoditas peternakan</small></div>
+                    </div>
+                </div>
+            </div>
+            <section class="section categories category-data-section sector-map-section" id="peta-peternakan">
+                <div class="container category-grid single-category-grid">
+                    <article class="category-card data-category-card map-category-card">
+                        <div aria-hidden="true" class="data-card-illustration">🗺️</div>
+                        <div class="category-heading"><span class="big-icon">⌖</span>
+                            <div>
+                                <h2>Peta Sebaran Peternakan</h2>
+                                <p>Peta interaktif data peternakan per kecamatan hingga desa atau kelurahan di Kabupaten
+                                    Bogor.</p>
+                            </div>
+                        </div>
+                        <div class="category-items data-category-items map-category-items">
+                            <div class="category-item"><span>🐄</span>Peternakan</div>
+                            <div class="category-item"><span>⌖</span>Kecamatan</div>
+                            <div class="category-item"><span>▦</span>Desa/Kelurahan</div>
+                            <div class="category-item"><span>↻</span>Data API</div>
+                        </div>
+                        <div class="category-control-row">
+                            <div class="category-select-control"><label for="kecamatan-select">Pilih
+                                    Kecamatan</label><select class="select2-kecamatan" id="kecamatan-select">
+                                    <option value="">Semua Kecamatan</option>
+                                </select></div>
+                            <div aria-label="Keterangan peta" class="category-map-legend"><span><i
+                                        class="legend-dot livestock"></i>Peternakan</span></div>
+                        </div>
+                        <div aria-label="Peta sebaran peternakan Kabupaten Bogor" class="category-map-panel"
+                            id="spartan-map"></div>
+                        <span class="btn btn-green category-button data-category-button">Data Peternakan Aktif</span>
+                    </article>
+                </div>
+            </section>
+            <section class="section categories category-data-section price-category-section" id="harga-peternakan">
+                <div class="container">
+                    <div class="category-grid single-category-grid">
+                        <article class="category-card data-category-card stats-category-card">
+                            <div aria-hidden="true" class="data-card-illustration">📊</div>
+                            <div class="category-heading"><span class="big-icon">📊</span>
+                                <div>
+                                    <h2>Statistik Harga Komoditas Peternakan</h2>
+                                    <p>Ringkasan harga terendah, tertinggi, rata-rata, dan perubahan harga khusus
+                                        komoditas peternakan.</p>
+                                </div>
+                            </div>
+                            <div class="category-items data-category-items stats-category-items">
+                                <div class="category-item"><span>▾</span>Terendah</div>
+                                <div class="category-item"><span>▴</span>Tertinggi</div>
+                                <div class="category-item"><span>≈</span>Rata-Rata</div>
+                                <div class="category-item"><span>↗</span>Perbandingan</div>
+                            </div>
+                            <span class="btn btn-green category-button data-category-button">Data Harga
+                                Peternakan</span>
+                        </article>
+                    </div>
+                    <div class="price-category-grid" id="price-cards-container">
+                        <article class="category-card price-category-card price-lowest-card">
+                            <div aria-hidden="true" class="data-card-illustration">↓</div>
+                            <div class="category-heading"><span class="big-icon">▾</span>
+                                <div>
+                                    <h2>Harga Terendah</h2>
+                                    <p>Harga akhir terendah komoditas peternakan</p>
+                                </div>
+                            </div>
+                            <div class="price-category-value"><span>Harga terkini</span>
+                                <h3 id="card-lowest-val">Rp —</h3>
+                            </div>
+                            <div class="category-items price-category-items">
+                                <div class="category-item"><span>▣</span><strong id="card-lowest-name">Memuat
+                                        data…</strong></div>
+                                <div class="category-item"><span>⌖</span><strong id="card-lowest-market">—</strong>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="category-card price-category-card price-highest-card">
+                            <div aria-hidden="true" class="data-card-illustration">↑</div>
+                            <div class="category-heading"><span class="big-icon">▴</span>
+                                <div>
+                                    <h2>Harga Tertinggi</h2>
+                                    <p>Harga akhir tertinggi komoditas peternakan</p>
+                                </div>
+                            </div>
+                            <div class="price-category-value"><span>Harga terkini</span>
+                                <h3 id="card-highest-val">Rp —</h3>
+                            </div>
+                            <div class="category-items price-category-items">
+                                <div class="category-item"><span>▣</span><strong id="card-highest-name">Memuat
+                                        data…</strong></div>
+                                <div class="category-item"><span>⌖</span><strong id="card-highest-market">—</strong>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="category-card price-category-card price-average-card">
+                            <div aria-hidden="true" class="data-card-illustration">≈</div>
+                            <div class="category-heading"><span class="big-icon">≈</span>
+                                <div>
+                                    <h2>Harga Rata-Rata</h2>
+                                    <p>Rata-rata harga komoditas peternakan</p>
+                                </div>
+                            </div>
+                            <div class="price-category-value"><span>Harga terkini</span>
+                                <h3 id="card-avg-val">Rp —</h3>
+                            </div>
+                            <div class="category-items price-category-items">
+                                <div class="category-item"><span>🐄</span><strong id="card-avg-name">Memuat
+                                        data…</strong></div>
+                                <div class="category-item"><span>↻</span><strong>Data terbaru</strong></div>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="category-grid single-category-grid category-data-gap">
+                        <article class="category-card data-category-card chart-category-card">
+                            <div aria-hidden="true" class="data-card-illustration">📈</div>
+                            <div class="category-heading"><span class="big-icon">↗</span>
+                                <div>
+                                    <h2>Grafik Perbandingan Harga Peternakan</h2>
+                                    <p>Perbandingan harga awal dan harga akhir komoditas peternakan.</p>
+                                </div>
+                            </div>
+                            <div class="category-items data-category-items chart-category-items">
+                                <div class="category-item"><span>◔</span>Harga Awal</div>
+                                <div class="category-item"><span>●</span>Harga Akhir</div>
+                                <div class="category-item"><span>10</span>Komoditas</div>
+                                <div class="category-item"><span>↻</span>Data API</div>
+                            </div>
+                            <div class="category-chart-panel" id="price-chart-container"></div><span
+                                class="btn btn-green category-button data-category-button">Perbandingan Harga</span>
+                        </article>
+                    </div>
+                    <div class="category-grid single-category-grid category-data-gap">
+                        <article class="category-card data-category-card table-category-card">
+                            <div aria-hidden="true" class="data-card-illustration">▦</div>
+                            <div class="category-heading"><span class="big-icon">▦</span>
+                                <div>
+                                    <h2>Daftar Perkembangan Harga Peternakan</h2>
+                                    <p>Daftar harga difokuskan hanya pada komoditas sektor peternakan.</p>
+                                </div>
+                            </div>
+                            <div class="category-table-panel">
+                                <table class="commodity-table">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Komoditas</th>
+                                            <th>Satuan</th>
+                                            <th>Harga Awal</th>
+                                            <th>Harga Akhir</th>
+                                            <th>Perubahan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="commodity-table-body">
+                                        <tr>
+                                            <td class="table-empty-state" colspan="6">Memuat data harga peternakan...
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div><span class="btn btn-green category-button data-category-button"
+                                id="commodity-sector-status">Komoditas Peternakan</span>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            <section class="section categories district-distribution-section single-sector-distribution"
+                id="distribusi-peternakan">
+                <div class="container category-grid single-category-grid">
+                    <article class="category-card data-category-card distribution-category-card">
+                        <div aria-hidden="true" class="data-card-illustration">📍</div>
+                        <div class="category-heading"><span class="big-icon">⌖</span>
+                            <div>
+                                <h2>Distribusi Peternakan Per Kecamatan</h2>
+                                <p>Visualisasi jumlah data peternakan berdasarkan wilayah kecamatan di Kabupaten Bogor.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="distribution-summary-grid single-sector-summary-grid">
+                            <article class="distribution-summary-card livestock"><span
+                                    class="distribution-summary-icon">🐄</span>
+                                <div><small>Total Peternakan</small><strong id="distribution-total-sector">—</strong>
+                                </div>
+                            </article>
+                            <article class="distribution-summary-card district"><span
+                                    class="distribution-summary-icon">⌖</span>
+                                <div><small>Total Kecamatan</small><strong id="distribution-total-districts">—</strong>
+                                </div>
+                            </article>
+                            <article class="distribution-summary-card village"><span
+                                    class="distribution-summary-icon">▦</span>
+                                <div><small>Desa/Kelurahan</small><strong id="distribution-total-villages">—</strong>
+                                </div>
+                            </article>
+                            <article class="distribution-summary-card active"><span
+                                    class="distribution-summary-icon">●</span>
+                                <div><small>Kecamatan Aktif</small><strong id="distribution-total-active">—</strong>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="distribution-donut-grid single-sector-donut-grid">
+                            <article class="district-chart-card livestock-chart-card">
+                                <header class="district-chart-header">
+                                    <div class="district-chart-title-wrap"><span aria-hidden="true"
+                                            class="district-chart-icon">🐄</span>
+                                        <div>
+                                            <h3>Total Peternakan Per Kecamatan</h3>
+                                            <p>Distribusi data peternakan</p>
+                                        </div>
+                                    </div><span class="distribution-live-badge"><i></i> Data API</span>
+                                </header>
+                                <div class="district-chart-body">
+                                    <div aria-label="Diagram donat total peternakan per kecamatan"
+                                        id="district-sector-chart" role="img"></div>
+                                </div>
+                            </article>
+                        </div>
+                        <span class="btn btn-green category-button data-category-button"
+                            id="distribution-data-status">Memuat Distribusi</span>
+                    </article>
+                </div>
+            </section>
+        </section>
+        <section class="section-soft-blue section" id="produksi-populasi-section">
+            <div class="container">
+                <div class="section-title-row">
+                    <h2 class="section-title"><span class="leaf-mark">❧</span>Produksi &amp; Populasi Ternak</h2>
+                </div>
+                <div class="category-grid">
+                    <article class="category-card service-category-card production">
+                        <div aria-hidden="true" class="service-visual">
+                            <span class="service-visual-main">🥛</span>
+                            <span class="service-visual-badge">↗</span>
+                        </div>
+                        <div class="category-heading">
+                            <span class="big-icon">▦</span>
+                            <div>
+                                <h2>Produksi Ternak</h2>
+                                <p>Data produksi komoditas peternakan Kabupaten Bogor</p>
+                            </div>
+                        </div>
+                        <div class="category-items">
+                            <div class="category-item"><span>◷</span>Data Tahunan</div>
+                            <div class="category-item"><span>⌖</span>Per Kecamatan</div>
+                            <div class="category-item"><span>▥</span>Jenis Ternak</div>
+                        </div>
+                        <a class="btn btn-blue category-button"
+                            href="https://spartan.bogorkab.go.id/produksi-populasi-ternak">Lihat Selengkapnya →</a>
+                    </article>
+                    <article class="category-card service-category-card population">
+                        <div aria-hidden="true" class="service-visual">
+                            <span class="service-visual-main">🐄</span>
+                            <span class="service-visual-badge">▥</span>
+                        </div>
+                        <div class="category-heading">
+                            <span class="big-icon">♣</span>
+                            <div>
+                                <h2>Populasi Ternak</h2>
+                                <p>Sebaran dan perkembangan populasi ternak daerah</p>
+                            </div>
+                        </div>
+                        <div class="category-items">
+                            <div class="category-item"><span>◷</span>Histori Data</div>
+                            <div class="category-item"><span>⌖</span>Peta Sebaran</div>
+                            <div class="category-item"><span>↗</span>Tren Populasi</div>
+                        </div>
+                        <a class="btn btn-green category-button"
+                            href="https://spartan.bogorkab.go.id/produksi-populasi-ternak">Lihat Selengkapnya →</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section class="section" id="dokter-upt-section">
+            <div class="container">
+                <div class="section-title-row">
+                    <h2 class="section-title"><span class="leaf-mark">❧</span>Layanan Kesehatan Hewan</h2>
+                </div>
+                <div class="category-grid">
+                    <article class="category-card service-category-card veterinary">
+                        <div aria-hidden="true" class="service-visual">
+                            <span class="service-visual-main">🩺</span>
+                            <span class="service-visual-badge">✚</span>
+                        </div>
+                        <div class="category-heading">
+                            <span class="big-icon">✚</span>
+                            <div>
+                                <h2>Praktik Dokter Hewan</h2>
+                                <p>Informasi tenaga medis hewan yang terverifikasi</p>
+                            </div>
+                        </div>
+                        <div class="category-items">
+                            <div class="category-item"><span>♙</span>Dokter Resmi</div>
+                            <div class="category-item"><span>⌖</span>Lokasi Praktik</div>
+                            <div class="category-item"><span>☎</span>Kontak Layanan</div>
+                        </div>
+                        <a class="btn btn-orange category-button"
+                            href="https://spartan.bogorkab.go.id/dokter-hewan-upt">Lihat Selengkapnya →</a>
+                    </article>
+                    <article class="category-card service-category-card puskeswan">
+                        <div aria-hidden="true" class="service-visual">
+                            <span class="service-visual-main">🏥</span>
+                            <span class="service-visual-badge">♥</span>
+                        </div>
+                        <div class="category-heading">
+                            <span class="big-icon">⌂</span>
+                            <div>
+                                <h2>UPT Puskeswan</h2>
+                                <p>Unit pelayanan kesehatan hewan Kabupaten Bogor</p>
+                            </div>
+                        </div>
+                        <div class="category-items">
+                            <div class="category-item"><span>✓</span>Unit Resmi</div>
+                            <div class="category-item"><span>✚</span>Tindakan Medis</div>
+                            <div class="category-item"><span>♧</span>Dukungan Peternak</div>
+                        </div>
+                        <a class="btn btn-purple category-button"
+                            href="https://spartan.bogorkab.go.id/dokter-hewan-upt">Lihat Selengkapnya →</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section class="section" id="produk-peternakan">
+            <div class="container">
+                <div class="section-title-row">
+                    <h2 class="section-title"><span class="leaf-mark">❧</span>Produk Peternakan</h2><a
+                        class="section-link" href="umkm.html">Semua Produk →</a>
+                </div>
+                <div class="products-grid">
+                    <article class="product-card"><img alt="Pakan sapi premium" src="assets/images/content-01.jpg" />
+                        <div class="product-info">
+                            <h3>Pakan Sapi Premium</h3><small>25kg</small>
+                            <div class="price">Rp275.000</div><button class="buy-btn"
+                                onclick="buy('Pakan Sapi Premium')">🛒 Beli
+                                Sekarang</button>
+                        </div>
+                    </article>
+                    <article class="product-card"><img alt="Pakan ayam petelur" src="assets/images/content-03.jpg" />
+                        <div class="product-info">
+                            <h3>Pakan Ayam Petelur</h3><small>20kg</small>
+                            <div class="price">Rp230.000</div><button class="buy-btn"
+                                onclick="buy('Pakan Ayam Petelur')">🛒 Beli
+                                Sekarang</button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section class="section section-soft-green" id="edukasi-peternakan">
+            <div class="container">
+                <div class="section-title-row">
+                    <h2 class="section-title"><span class="leaf-mark">▧</span>Edukasi Peternakan</h2><a
+                        class="section-link" href="informasi.html#berita">Semua Berita →</a>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card">
+                        <div class="news-image"><img alt="Sapi perah" src="assets/images/content-05.jpg" /><span
+                                class="tag green">Peternakan</span></div>
+                        <div class="news-body">
+                            <h3>5 Tips Meningkatkan Produksi Susu Sapi Perah</h3>
+                            <div class="news-meta"><span>24 Mei 2024</span><span>◉ 1.2K</span></div>
+                        </div>
+                    </article>
+                    <article class="news-card">
+                        <div class="news-image"><img alt="Kandang ayam" src="assets/images/content-07.jpg" /><span
+                                class="tag green">Peternakan</span></div>
+                        <div class="news-body">
+                            <h3>Manajemen Kandang Ayam Modern</h3>
+                            <div class="news-meta"><span>20 Mei 2024</span><span>◉ 1.1K</span></div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section class="container cta">
+            <p>Peta sebaran dan perkembangan harga komoditas peternakan tersedia langsung pada halaman ini.</p><a
+                class="btn btn-blue" href="#statistik-peternakan">Lihat Statistik Peternakan</a>
+        </section>
+    </main>
+    <footer class="site-footer" id="kontak">
+        <div class="footer-wave">
+            <svg height="100%" preserveaspectratio="none" version="1.1" viewbox="0 0 1600 900" width="100%"
+                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <defs>
+                    <lineargradient id="bg" x1="0%" x2="100%" y1="0%" y2="0%">
+                        <stop offset="0%" style="stop-color:#0878bd;stop-opacity:.4"></stop>
+                        <stop offset="50%" style="stop-color:#15963a;stop-opacity:.5"></stop>
+                        <stop offset="100%" style="stop-color:#10772e;stop-opacity:.8"></stop>
+                    </lineargradient>
+                    <path
+                        d="M-363.852,502.589c0,0,236.988-41.997,505.475,0s371.981,38.998,575.971,0s293.985-39.278,505.474,5.859s493.475,48.368,716.963-4.995v560.106H-363.852V502.589z"
+                        fill="url(#bg)" id="wave"></path>
+                </defs>
+                <g>
+                    <use opacity=".3" xlink:href="#wave">
+                        <animatetransform attributename="transform" attributetype="XML" dur="10s"
+                            repeatcount="indefinite" type="translate" values="270 230;-334 180;270 230">
+                        </animatetransform>
+                    </use>
+                    <use opacity=".6" xlink:href="#wave">
+                        <animatetransform attributename="transform" attributetype="XML" dur="8s"
+                            repeatcount="indefinite" type="translate" values="-270 230;243 220;-270 230">
+                        </animatetransform>
+                    </use>
+                    <use opacity=".9" xlink:href="#wave">
+                        <animatetransform attributename="transform" attributetype="XML" dur="6s"
+                            repeatcount="indefinite" type="translate" values="0 230;-140 200;0 230"></animatetransform>
+                    </use>
+                </g>
+            </svg>
+        </div>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand"><a class="brand" href="index.html"><img alt="Logo SPARTAN" class="brand-logo"
+                            src="https://spartan.bogorkab.go.id/assets/img/17350108258803.png" /><span
+                            class="brand-copy"><strong>SPARTAN</strong><small>Ternak &amp; Perikanan</small></span></a>
+                    <p>Portal informasi peternakan dan perikanan Kabupaten Bogor.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Sektor</h4>
+                    <ul>
+                        <li><a href="peternakan.html">Peternakan</a></li>
+                        <li><a href="perikanan.html">Perikanan</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Informasi</h4>
+                    <ul>
+                        <li><a href="umkm.html">Produk UMKM</a></li>
+                        <li><a href="informasi.html#berita">Berita &amp; Edukasi</a></li>
+                        <li><a href="index.html">Beranda</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Kontak</h4>
+                    <ul class="contact-list">
+                        <li>⌖ <span>Kabupaten Bogor, Jawa Barat</span></li>
+                        <li>☎ <span>Dinas Perikanan dan Peternakan</span></li>
+                        <li>↗ <span>diskanak.bogorkab.go.id</span></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Ikuti Kami</h4>
+                    <div class="socials"><a aria-label="Facebook" href="#">f</a><a aria-label="Instagram"
+                            href="#">◎</a><a aria-label="YouTube" href="#">▶</a><a aria-label="WhatsApp" href="#">✆</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright"><span>© 2026 SPARTAN. Hak cipta dilindungi.</span><span>Peternakan • Perikanan • UMKM
+                    • Informasi</span></div>
+        </div>
+    </footer>
+    <div aria-live="polite" class="toast" id="toast" role="status"></div>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/sector-data.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+<?php
+return [
+    'success_save'                => 'Data save successfully.',
+    'success_add'                 => 'Data created successfully.',
+    'success_update'              => 'Data updated successfully.',
+    'success_delete'              => 'Data deleted successfully.',
+    'success_register_and_verify' => 'Registration has been successfully completed. Please verify your email.',
+    'success_register'            => 'Registration successful. Please Login.',
+    'success_verify'              => 'Email Successfully Verified!.',
+    'success_resend'              => 'Verification link sent!',
+    'error'                       => 'Error!!!',
+    'error_inputan_tida_sesuai'   => 'Data is not valid',
+    'add'                         => 'Add',
+    'add_collective'              => 'Add Collective',
+    'edit'                        => 'Edit',
+    'delete_selected'             => 'Delete Selected',
+    'back'                        => 'Back',
+    'save'                        => 'Save',
+    'delete'                      => 'Delete',
+    'login_as'                    => 'Login As',
+    'urutan'                      => 'Sequence',
+];

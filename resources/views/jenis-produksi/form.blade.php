@@ -1,0 +1,1 @@
+<x-form-input name="nama" label="Nama" autofocus /> 

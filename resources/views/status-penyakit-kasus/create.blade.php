@@ -1,0 +1,1 @@
+@include('base-page.create', ['backroute' => route($route.'.index', ['id_status_penyakit' => $getParent->id])])
