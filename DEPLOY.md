@@ -1,4 +1,4 @@
-# SPARTAN Deployment Automation
+﻿# SPARTAN Deployment Automation
 
 ## Setup Instructions
 
@@ -61,7 +61,7 @@ If you prefer to run deployment manually:
 **On Laravel Cloud server:**
 ```bash
 cd /home/sites/default
-bash deploy.sh
+./deploy-server.sh
 ```
 
 **On Windows local:**
@@ -91,14 +91,14 @@ Make sure your `.env` file on Laravel Cloud has:
 
 On first deployment to Laravel Cloud:
 
-1. Create `.env` file from `.env.production` template
-2. Fill in all production credentials
-3. Run `php artisan key:generate`
-4. Run `php artisan migrate --force`
-5. Run `php artisan storage:link`
-6. Run `php artisan config:cache`
+1. Salin `.env.local` ke `.env` di server
+2. Isi semua production credentials
+3. Jalankan `php artisan key:generate`
+4. Jalankan `php artisan migrate --force`
+5. Jalankan `php artisan storage:link`
+6. Jalankan `php artisan config:cache`
 
-After that, every push to `main` will automatically deploy!
+Setiap push ke `main` akan otomatis deploy!
 
 ## VS Code Workflow
 
@@ -167,8 +167,7 @@ git push origin main           # Trigger deployment
 | File | Purpose | Git |
 |------|---------|-----|
 | `.env` | **Active** environment file | Ignored |
-| `.env.local` | Local overrides (not used by Laravel) | Ignored |
-| `.env.production` | Production template | Ignored |
+| `.env.local` | Production template | Ignored |
 | `.env.example` | Reference for all variables | Committed |
 
-**Note:** For local development, edit `.env`. For production, edit `.env` on the Laravel Cloud server or use the Laravel Cloud dashboard to set environment variables.
+**Note:** Untuk development, edit `.env`. Untuk production, salin `.env.local` ke server dan sesuaikan nilai.
