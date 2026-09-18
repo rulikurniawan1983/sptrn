@@ -1,66 +1,192 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SPARTAN
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistem Informasi Pertanian, Peternakan, Perikanan, dan UMKM.
 
-## About Laravel
+## Tech Stack
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Laravel** 11.x
+- **PHP** 8.2+
+- **MySQL** / SQLite
+- **Vite** + Tailwind CSS v4
+- **Alpine.js**
+- **Redis** (production)
+- **Laravel Sanctum**
+- **Spatie Packages:** Permission, Medialibrary, Activitylog, Sluggable
+- **Maatwebsite Excel** untuk import/export
+- **Yajra Datatables** untuk tabel server-side
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Fitur Utama
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Manajemen pengguna & role-based access control
+- Data perikanan, peternakan, dan UMKM
+- Upload dan manajemen berkas/galeri
+- Import dan export data Excel
+- Laporan dan dashboard
+- Front-end publik dan admin panel
+- Activity log
 
-## Learning Laravel
+## Persyaratan
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP >= 8.2
+- Composer
+- Node.js & npm
+- MySQL / SQLite
+- Redis (opsional untuk production)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Instalasi
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+# Clone repository
+git clone https://github.com/rulikurniawan1983/sptrn.git
+cd sptrn
 
-## Laravel Sponsors
+# Install PHP dependencies
+composer install
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+# Install Node dependencies
+npm install
 
-### Premium Partners
+# Copy environment file
+cp .env.example .env
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+# Generate application key
+php artisan key:generate
 
-## Contributing
+# Create SQLite database (opsional untuk lokal)
+touch database/database.sqlite
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Run migrations
+php artisan migrate
 
-## Code of Conduct
+# Create storage link
+php artisan storage:link
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Build assets
+npm run build
+```
 
-## Security Vulnerabilities
+## Menjalankan Aplikasi
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Development
+```bash
+# Terminal 1: Vite dev server
+npm run dev
+
+# Terminal 2: Laravel server
+php artisan serve
+```
+
+Akses di `http://localhost:8000`
+
+### Production
+```bash
+# Build assets
+npm run build
+
+# Install dependencies tanpa dev
+composer install --no-dev --optimize-autoloader
+
+# Optimize
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+php artisan event:cache
+```
+
+## Environment Variables
+
+Lihat file `env.md` untuk dokumentasi lengkap environment variables.
+
+- `.env` - Environment aktif (development/production)
+- `.env.local` - Override lokal
+- `.env.production` - Template production
+- `.env.example` - Referensi variabel yang dibutuhkan
+
+## Testing
+
+```bash
+php artisan test
+```
+
+## Deployment
+
+Aplikasi ini otomatis deploy ke Laravel Cloud melalui GitHub Actions.
+
+**Setup GitHub Secrets:**
+- `LARAVEL_CLOUD_DEPLOY_HOOK` - URL deploy hook dari Laravel Cloud
+- `LARAVEL_CLOUD_SSH_KEY` - Private SSH key untuk akses server
+- `LARAVEL_CLOUD_SSH_HOST` - Hostname/IP server
+- `LARAVEL_CLOUD_SSH_USER` - Username SSH
+
+**Manual deployment:**
+```bash
+# Di server Laravel Cloud
+cd /home/sites/default
+bash deploy-server.sh
+```
+
+Lihat `DEPLOY.md` untuk panduan lengkap deployment automation.
+
+## VS Code Tasks
+
+Buka **Terminal → Run Task** (`Ctrl+Shift+B`) untuk mengakses:
+
+- Start Development Server
+- Generate APP_KEY
+- Run Migrations
+- Clear All Caches
+- Build Production Assets
+- Full Production Deployment
+
+## Scripts
+
+- `deploy.sh` - Deployment script untuk Linux/Mac
+- `deploy.bat` - Deployment script untuk Windows
+- `deploy-server.sh` - Post-deployment script untuk server
+
+## Struktur Project
+
+```
+├── app/
+│   ├── Http/Controllers/
+│   ├── Models/
+│   └── Helpers/
+├── bootstrap/
+├── config/
+├── database/
+│   ├── migrations/
+│   └── seeders/
+├── public/
+│   └── build/
+├── resources/
+│   ├── css/
+│   ├── js/
+│   └── views/
+├── routes/
+├── storage/
+├── tests/
+├── .env
+├── .env.example
+├── .env.local
+├── .env.production
+├── composer.json
+├── package.json
+├── vite.config.js
+└── artisan
+```
+
+## Kontribusi
+
+1. Fork repository
+2. Buat branch baru (`git checkout -b feature/namafitur`)
+3. Commit perubahan (`git commit -m 'Add some feature'`)
+4. Push ke branch (`git push origin feature/namafitur`)
+5. Buka Pull Request
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+MIT License - lihat file [LICENSE](LICENSE) untuk detail.
+
+## Author
+
+- Ruli Kurniawan - [@rulikurniawan1983](https://github.com/rulikurniawan1983)
