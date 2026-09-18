@@ -12,7 +12,7 @@ echo ""
 # Check if .env exists
 if [ ! -f .env ]; then
     echo "ERROR: .env file not found!"
-    echo "Please create .env file from .env.production template"
+    echo "Please copy .env to the server and configure your production values"
     exit 1
 fi
 
