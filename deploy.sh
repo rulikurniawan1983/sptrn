@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+﻿#!/usr/bin/env bash
 # Laravel Cloud Deployment Script
 # Run this script after deployment to production
 
