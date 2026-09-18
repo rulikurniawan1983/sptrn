@@ -82,6 +82,9 @@ Akses di `http://localhost:8000`
 ### Production
 
 ```bash
+# Di server, salin .env.local ke .env dan sesuaikan nilai
+cp .env.local .env
+
 # Build assets
 npm run build
 
@@ -93,16 +96,20 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 php artisan event:cache
+
+# Atau jalankan script deploy
+./deploy.sh
 ```
 
 ## Environment Variables
 
 Lihat file `env.md` untuk dokumentasi lengkap environment variables.
 
-- `.env` - Environment aktif (development/production)
-- `.env.local` - Override lokal
-- `.env.production` - Template production
+- `.env` - Environment aktif untuk development (SQLite, file cache, debug ON)
+- `.env.local` - Template environment production (MySQL, Redis, debug OFF)
 - `.env.example` - Referensi variabel yang dibutuhkan
+
+**Untuk production:** salin `.env.local` ke server, sesuaikan nilai, dan jalankan `./deploy.sh`.
 
 ## Testing
 
@@ -126,7 +133,7 @@ Aplikasi ini otomatis deploy ke Laravel Cloud melalui GitHub Actions.
 ```bash
 # Di server Laravel Cloud
 cd /home/sites/default
-bash deploy-server.sh
+./deploy-server.sh
 ```
 
 Lihat `DEPLOY.md` untuk panduan lengkap deployment automation.
@@ -170,9 +177,8 @@ Buka **Terminal → Run Task** (`Ctrl+Shift+B`) untuk mengakses:
 ├── storage/
 ├── tests/
 ├── .env
-├── .env.example
 ├── .env.local
-├── .env.production
+├── .env.example
 ├── composer.json
 ├── package.json
 ├── vite.config.js
