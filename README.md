@@ -1,6 +1,6 @@
 # SPARTAN
 
-Sistem Informasi Pertanian, Peternakan, Perikanan, dan UMKM.
+Sistem Informasi Peternakan, Perikanan, dan UMKM.
 
 ## Tech Stack
 
