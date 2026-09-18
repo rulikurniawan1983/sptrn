@@ -1,6 +1,5 @@
 /.phpunit.cache
 /node_modules
-# /public/build
 /public/hot
 /public/storage
 /storage/framework/*
@@ -15,7 +14,6 @@
 .env.local
 .env.production
 .phpactor.json
-.phpunit.result.cache
 Homestead.json
 Homestead.yaml
 auth.json
@@ -26,9 +24,3 @@ yarn-error.log
 /.vscode
 .DS_Store
 ._*
-claude.json
-laporan.md
-replace_logos.py
-spartan-fix/
-hero/
-bukudata/
